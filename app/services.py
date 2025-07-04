@@ -5,7 +5,7 @@ from .models import Karyawan
 from .repositories import KaryawanRepository
 
 class KaryawanService:
-    def __init__(self, session):
+    def _init_(self, session):
         self.repository = KaryawanRepository(session)
 
     def tambah_karyawan(self, data):
@@ -40,3 +40,9 @@ class KaryawanService:
             raise ValueError(f"Karyawan dengan ID {karyawan_id} tidak ditemukan.")
         
         self.repository.delete(karyawan)
+    
+    def cari_karyawan_service(self, query):
+        """Logika bisnis untuk mencari karyawan."""
+        if not query:
+            raise ValueError("Kata kunci pencarian tidak boleh kosong.")
+        return self.repository.search(query)
